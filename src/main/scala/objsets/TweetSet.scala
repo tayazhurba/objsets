@@ -150,7 +150,7 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   }
 
   def union(that: TweetSet): TweetSet = {
-
+    if that.
   }
 
 
@@ -184,6 +184,17 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
 trait TweetList {
   def head: Tweet
   def tail: TweetList
+  def isEmpty: Boolean
+  def foreach(f: Tweet => Unit): Unit =
+    if (!isEmpty) {
+      f(head)
+      tail.foreach(f)
+    }
+}
+
+trait TweetSet {
+  def head: Tweet
+  def tail: TweetSet
   def isEmpty: Boolean
   def foreach(f: Tweet => Unit): Unit =
     if (!isEmpty) {
