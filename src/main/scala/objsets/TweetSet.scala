@@ -107,15 +107,13 @@ abstract class TweetSet {
 class Empty extends TweetSet {
 
   def filter(p: Tweet => Boolean): TweetSet ={
-    def filter0(p: Tweet => Boolean, acc: TweetSet): TweetSet ={
-      filterAcc(p, acc)
-    }
+    def filter0(p: Tweet => Boolean, acc: TweetSet): TweetSet ={ filterAcc(p, acc)}
     filter0(p, new Empty)
   }
 
   def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = acc
 
-  def union(that: TweetSet): TweetSet = ???
+  def union(that: TweetSet): TweetSet = that
   /**
    * Следующие методы уже реализованы
    */
@@ -150,7 +148,7 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
   }
 
   def union(that: TweetSet): TweetSet = {
-    if that.
+    right.union(left.union(that.incl(elem)))
   }
 
 
@@ -184,17 +182,6 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
 trait TweetList {
   def head: Tweet
   def tail: TweetList
-  def isEmpty: Boolean
-  def foreach(f: Tweet => Unit): Unit =
-    if (!isEmpty) {
-      f(head)
-      tail.foreach(f)
-    }
-}
-
-trait TweetSet {
-  def head: Tweet
-  def tail: TweetSet
   def isEmpty: Boolean
   def foreach(f: Tweet => Unit): Unit =
     if (!isEmpty) {
